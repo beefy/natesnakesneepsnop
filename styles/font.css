@@ -1,0 +1,41 @@
+h1 {
+	font-family: Graduate;
+	font-size: 152px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 25.5px;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+    text-align: center;
+}
+h2 {
+	font-family: Graduate;
+	font-size: 12.5px;
+	font-style: normal;
+	font-weight: 200;
+	line-height: 25.5px;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+p {
+	font-family: Righteous;
+	font-size: 25px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 25.5px;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+blockquote {
+	font-family: Raleway;
+	font-size: 21px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 30px;
+}
+pre {
+	font-family: Raleway;
+	font-size: 13px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 18.5714282989502px;
+}
