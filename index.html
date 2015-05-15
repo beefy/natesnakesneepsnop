@@ -4,13 +4,17 @@
         <tite>Nate Snake Sneep Snop</tite>
         <link href="styles/index.css" rel="stylesheet" type="text/css">
         <link href="styles/font.css" rel="stylesheet" type="text/css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="scripts/canvas.js"></script>
     </head>
 
-    <body>
+    <body onkeypress="keyPressed()">
         <h1>Nate Snake Sneep Snop</h1>
         <div id="whiteBackground">
             <div id="canvas">
-                <style src="scripts/game.js"></style>
+                <div>
+                    <h1 id="spaceToPlay">SPACE TO PLAY</h1>
+                </div>
             </div>
         </div>
     </body>

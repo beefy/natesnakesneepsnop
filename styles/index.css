@@ -25,4 +25,13 @@ background-color: black;
   height: 92%;
   margin-left: 1.5%;
   margin-top: 1.5%;
+  display: table;
+}
+
+#spaceToPlay {
+  margin: 0;
+  vertical-align: center;
+  vertical-align: middle;
+  margin-top: 17.5%;
+  color: white;
 }
