@@ -2,12 +2,13 @@
 var game_started = false;
 var active_snake_parts = [   [1,2], [1,3], [1,4], [2,4]  ];
 var move_dir = "left";
+var last_dir;
 
 function frame() {
     check_death();
     check_grow();
     move_snake();
-    setTimeout(frame, 500);
+    setTimeout(frame, 150);
 }
 
 function move_snake() {
@@ -19,27 +20,32 @@ function move_snake() {
 
     //change which part is active
     for (var i = 0; i < active_snake_parts.length; i++) {
-            if(i+1 < active_snake_parts.length) {
+        if (move_dir != "paused") {
+            if (i + 1 < active_snake_parts.length) {
                 active_snake_parts[i][0] = active_snake_parts[i + 1][0];
                 active_snake_parts[i][1] = active_snake_parts[i + 1][1];
             } else {
                 if (move_dir == "left") {
                     active_snake_parts[i][0]++;
-                } else if(move_dir == "right") {
+                } else if (move_dir == "right") {
                     active_snake_parts[i][0]--;
-                } else if(move_dir == "down") {
+                } else if (move_dir == "down") {
                     active_snake_parts[i][1]++;
-                } else if(move_dir =="up") {
+                } else if (move_dir == "up") {
                     active_snake_parts[i][1]--;
                 }
             }
-
+        } 
     }
 
     //display
     for (var i = 0; i < active_snake_parts.length; i++) {
 
         $("#snake tr:nth-child(" + active_snake_parts[i][1] + ") td:nth-child(" + active_snake_parts[i][0] + ")").css("background-color", "white");
+
+        if (move_dir == "paused") {
+            $("#snake tr:nth-child(" + active_snake_parts[active_snake_parts.length - 1][1] + ") td:nth-child(" + active_snake_parts[active_snake_parts.length-1][0] + ")").css("background-color", "blue");
+        }
     }
 }
 
@@ -91,7 +97,12 @@ function keyDown(e) {
     }
 
     //pressed 'p'
-    if(game_started && event.keyCode == 112) {
-        move_dir = "paused";
+    if(game_started && event.keyCode == 80) {
+        if (move_dir != "paused") {
+            last_dir = move_dir;
+            move_dir = "paused";
+        } else {
+            move_dir = last_dir;
+        }
     }
 }
