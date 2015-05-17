@@ -1,8 +1,10 @@
 ﻿
 var game_started = false;
-var active_snake_parts = [   [1,2], [1,3], [1,4], [2,4]  ];
+var active_snake_parts = [[1, 2], [1, 3], [1, 4], [2, 4]];
+var apple = [[Math.round(Math.random() * 57), Math.round(Math.random() * 19)]];
 var move_dir = "left";
 var last_dir;
+var fed = 0;
 
 function frame() {
     check_death();
@@ -15,7 +17,15 @@ function move_snake() {
 
     //remove old display
     for (var i = 0; i < active_snake_parts.length; i++) {
-        $("table tr:nth-child(" + active_snake_parts[i][1] + ") td:nth-child(" + active_snake_parts[i][0] + ")").css("background-color", "black");
+       // if (fed <= 0) {
+            $("table tr:nth-child(" + active_snake_parts[i][1] + ") td:nth-child(" + active_snake_parts[i][0] + ")").css("background-color", "black");
+        //} 
+    }
+
+    if (fed > 0) {
+        fed--;
+        var add = [active_snake_parts[active_snake_parts.length - 1][0], active_snake_parts[active_snake_parts.length-1][1]];
+        active_snake_parts.push(add);
     }
 
     //change which part is active
@@ -38,7 +48,10 @@ function move_snake() {
         } 
     }
 
-    //display
+    //display apple
+    $("#snake tr:nth-child(" + apple[0][1] + ") td:nth-child(" + apple[0][0] + ")").css("background-color", "green");
+
+    //display snake
     for (var i = 0; i < active_snake_parts.length; i++) {
 
         $("#snake tr:nth-child(" + active_snake_parts[i][1] + ") td:nth-child(" + active_snake_parts[i][0] + ")").css("background-color", "white");
@@ -47,6 +60,7 @@ function move_snake() {
             $("#snake tr:nth-child(" + active_snake_parts[active_snake_parts.length - 1][1] + ") td:nth-child(" + active_snake_parts[active_snake_parts.length-1][0] + ")").css("background-color", "blue");
         }
     }
+
 }
 
 function check_death() {
@@ -54,7 +68,13 @@ function check_death() {
 }
 
 function check_grow() {
-
+    for (var i = 0; i < active_snake_parts.length; i++) {
+        if (active_snake_parts[i][0] == apple[0][0] && active_snake_parts[i][1] == apple[0][1]) {
+            apple[0][1] = Math.round(Math.random() * 19);
+            apple[0][0] = Math.round(Math.random() * 57);
+            fed += 3;
+        }
+    }
 }
 
 function keyDown(e) {
