@@ -6,12 +6,21 @@ var move_dir = "left";
 var lastMoveDir = "left";
 var last_dir;
 var fed = 0;
+var isDead = false;
+var deathNum = 0;
 
 function frame() {
-    check_death();
-    check_grow();
-    move_snake();
-    setTimeout(frame, 150);
+
+    if (!isDead) {
+        check_win();
+        check_death();
+        check_grow();
+        move_snake();
+        setTimeout(frame, 150);
+    } else {
+        $("#death")[0].style.display = "block";
+        death();
+    }
 }
 
 function move_snake() {
@@ -64,8 +73,30 @@ function move_snake() {
 
 }
 
-function check_death() {
+function check_win() {
 
+}
+
+function check_death() {
+    for (var i = 0; i < active_snake_parts.length; i++) {
+
+        //if collided with itself
+        if (i != 0 && active_snake_parts[0][0] == active_snake_parts[i][0] && active_snake_parts[0][1] == active_snake_parts[i][1]) {
+            isDead = true;
+        }
+
+        //if collided with wall
+        if((active_snake_parts[i][0] < 0 || active_snake_parts[i][0] > 57) ||
+            (active_snake_parts[i][1] < 0 || active_snake_parts[i][1] > 19)) {
+            isDead = true;
+        }
+    }
+}
+
+function death() {
+    $("#snake tr:nth-child(" + active_snake_parts[deathNum][1] + ") td:nth-child(" + active_snake_parts[deathNum][0] + ")").css("background-color", "#E83F3F");
+    if(deathNum < active_snake_parts.length-1) deathNum++;
+    setTimeout(frame, 250);
 }
 
 function check_grow() {
