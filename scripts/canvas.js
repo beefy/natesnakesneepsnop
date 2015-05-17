@@ -3,6 +3,7 @@ var game_started = false;
 var active_snake_parts = [[1, 2], [1, 3], [1, 4], [2, 4]];
 var apple = [[Math.round(Math.random() * 57), Math.round(Math.random() * 19)]];
 var move_dir = "left";
+var lastMoveDir = "left";
 var last_dir;
 var fed = 0;
 
@@ -15,11 +16,11 @@ function frame() {
 
 function move_snake() {
 
+    lastMoveDir = move_dir;
+
     //remove old display
     for (var i = 0; i < active_snake_parts.length; i++) {
-       // if (fed <= 0) {
-            $("table tr:nth-child(" + active_snake_parts[i][1] + ") td:nth-child(" + active_snake_parts[i][0] + ")").css("background-color", "black");
-        //} 
+        $("table tr:nth-child(" + active_snake_parts[i][1] + ") td:nth-child(" + active_snake_parts[i][0] + ")").css("background-color", "black");
     }
 
     if (fed > 0) {
@@ -49,7 +50,7 @@ function move_snake() {
     }
 
     //display apple
-    $("#snake tr:nth-child(" + apple[0][1] + ") td:nth-child(" + apple[0][0] + ")").css("background-color", "green");
+    $("#snake tr:nth-child(" + apple[0][1] + ") td:nth-child(" + apple[0][0] + ")").css("background-color", "#00FF22");
 
     //display snake
     for (var i = 0; i < active_snake_parts.length; i++) {
@@ -57,7 +58,7 @@ function move_snake() {
         $("#snake tr:nth-child(" + active_snake_parts[i][1] + ") td:nth-child(" + active_snake_parts[i][0] + ")").css("background-color", "white");
 
         if (move_dir == "paused") {
-            $("#snake tr:nth-child(" + active_snake_parts[active_snake_parts.length - 1][1] + ") td:nth-child(" + active_snake_parts[active_snake_parts.length-1][0] + ")").css("background-color", "blue");
+            $("#snake tr:nth-child(" + active_snake_parts[active_snake_parts.length - 1][1] + ") td:nth-child(" + active_snake_parts[active_snake_parts.length-1][0] + ")").css("background-color", "#4754FF");
         }
     }
 
@@ -93,25 +94,25 @@ function keyDown(e) {
     }
 
     //pressed right or 'd'
-    if(game_started && move_dir != "right" && 
+    if(game_started && move_dir != "right" && lastMoveDir != "right" &&
         (event.keyCode == 39 || event.keyCode == 68)) {
         move_dir = "left";
     }
 
     //pressed left or 'a'
-    if(game_started && move_dir != "left" && 
+    if (game_started && move_dir != "left" && lastMoveDir != "left" &&
         (event.keyCode == 37 || event.keyCode == 65)) {
         move_dir = "right";
     }
 
     //pressed up or 'w'
-    if(game_started && move_dir != "down" && 
+    if (game_started && move_dir != "down" && lastMoveDir != "down" &&
         (event.keyCode == 38 || event.keyCode == 87)) {
         move_dir = "up";
     }
 
     //pressed down or 's'
-    if(game_started && move_dir != "up" && 
+    if (game_started && move_dir != "up" && lastMoveDir != "up" &&
         (event.keyCode == 40 || event.keyCode == 83)) {
         move_dir = "down";
     }
