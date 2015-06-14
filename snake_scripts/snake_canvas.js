@@ -1,7 +1,7 @@
 ﻿
 var game_started = false;
-var active_snake_parts = [[1, 2], [1, 3], [1, 4], [2, 4]];
-var apple = [[Math.round(Math.random() * 57), Math.round(Math.random() * 19)]];
+var active_snake_parts = [[25, 13], [26, 13], [27, 13], [28, 13], [29, 13]];
+var apple = [[Math.round(Math.random() * 57)+1, Math.round(Math.random() * 19)+1]];
 var move_dir = "left";
 var lastMoveDir = "left";
 var last_dir;
@@ -13,7 +13,7 @@ function frame() {
 
     if (!isDead) {
         check_win();
-        check_death();
+        //check_death();
         check_grow();
         move_snake();
         setTimeout(frame, 150);
@@ -27,16 +27,17 @@ function move_snake() {
 
     lastMoveDir = move_dir;
 
+    if (fed > 0) {
+        fed--;
+        var add = [active_snake_parts[active_snake_parts.length - 1][0], active_snake_parts[active_snake_parts.length - 1][1]];
+        active_snake_parts.push(add);
+    }
+
     //remove old display
     for (var i = 0; i < active_snake_parts.length; i++) {
         $("table tr:nth-child(" + active_snake_parts[i][1] + ") td:nth-child(" + active_snake_parts[i][0] + ")").css("background-color", "black");
     }
 
-    if (fed > 0) {
-        fed--;
-        var add = [active_snake_parts[active_snake_parts.length - 1][0], active_snake_parts[active_snake_parts.length-1][1]];
-        active_snake_parts.push(add);
-    }
 
     //change which part is active
     for (var i = 0; i < active_snake_parts.length; i++) {
